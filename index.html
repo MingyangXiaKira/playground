@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web3 AI 时代学习路径 · 小夏</title>
+<style>
+  :root {
+    --bg: #0b0d10;
+    --surface: #12151a;
+    --surface-2: #171b21;
+    --line: #232830;
+    --line-soft: #1b1f26;
+    --text: #e6e8ec;
+    --text-2: #9aa2ae;
+    --text-3: #6b7480;
+    --accent: #5b8cff;
+    --green: #3fb950;
+    --amber: #d29922;
+    --red: #f85149;
+    --purple: #a371f7;
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 48px 24px 96px; }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; letter-spacing: .08em;
+    color: var(--text-3); text-transform: uppercase; margin-bottom: 14px;
+  }
+  h1 { font-size: 34px; line-height: 1.25; letter-spacing: -.02em; font-weight: 650; }
+  .lede { color: var(--text-2); font-size: 15px; max-width: 76ch; margin-top: 14px; }
+  .verdict, .note, .warn {
+    margin-top: 24px; padding: 18px 20px; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 6px;
+  }
+  .verdict { border-left: 2px solid var(--accent); }
+  .note { border-left: 2px solid var(--amber); }
+  .warn { border-left: 2px solid var(--red); }
+  .verdict p, .note p, .warn p { color: var(--text-2); font-size: 14.5px; }
+  .verdict p + p, .note p + p, .warn p + p { margin-top: 8px; }
+  strong, b { color: var(--text); font-weight: 650; }
+  section { margin-top: 64px; }
+  h2 {
+    font-size: 20px; font-weight: 650; letter-spacing: -.01em;
+    padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 8px;
+  }
+  .sub { color: var(--text-3); font-size: 13.5px; margin-bottom: 26px; }
+  h3 { font-size: 15.5px; font-weight: 650; margin-bottom: 10px; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid #263a5e; }
+  a:hover { border-color: var(--accent); }
+  .g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .box {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 8px; padding: 18px 20px;
+  }
+  .box p { font-size: 13.5px; color: var(--text-2); }
+  .stat {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px 18px;
+  }
+  .stat .n { font-family: var(--mono); font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
+  .stat .l { font-size: 12.5px; color: var(--text-3); margin-top: 4px; }
+  .stat.hot .n { color: var(--accent); }
+  .tabs { display: flex; gap: 8px; margin-bottom: 22px; flex-wrap: wrap; }
+  .tab {
+    font-family: inherit; font-size: 13.5px; padding: 8px 16px; cursor: pointer;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+    color: var(--text-2);
+  }
+  .tab:hover { color: var(--text); }
+  .tab.on { background: #1a2338; border-color: #2f4a7a; color: var(--accent); }
+  .pane { display: none; }
+  .pane.on { display: block; }
+  .step {
+    display: grid; grid-template-columns: 110px 1fr; gap: 20px;
+    padding: 18px 0; border-bottom: 1px solid var(--line-soft);
+  }
+  .step:last-child { border-bottom: none; }
+  .when { font-family: var(--mono); font-size: 12px; color: var(--text-3); }
+  .when b { display: block; color: var(--accent); font-size: 12.5px; margin-bottom: 3px; }
+  .goal { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  ul { list-style: none; }
+  li { font-size: 14px; color: var(--text-2); padding: 3px 0 3px 16px; position: relative; }
+  li::before { content: "–"; position: absolute; left: 0; color: var(--text-3); }
+  code {
+    font-family: var(--mono); font-size: 12.5px; background: var(--surface-2);
+    padding: 1px 5px; border-radius: 3px; color: var(--purple); border: 1px solid var(--line);
+  }
+  .deliver {
+    margin-top: 10px; font-size: 13px; color: var(--text-3);
+    font-family: var(--mono); padding: 7px 11px; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 4px; display: inline-block;
+  }
+  .deliver b { color: var(--green); }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th {
+    text-align: left; padding: 10px 12px; color: var(--text-3); font-weight: 500;
+    font-size: 12px; border-bottom: 1px solid var(--line); font-family: var(--mono);
+    text-transform: uppercase; letter-spacing: .05em;
+  }
+  td { padding: 11px 12px; border-bottom: 1px solid var(--line-soft); color: var(--text-2); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .check {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 20px 22px;
+  }
+  .check label {
+    display: flex; gap: 11px; padding: 6px 0; font-size: 14px;
+    color: var(--text-2); cursor: pointer; align-items: flex-start;
+  }
+  .check input { margin-top: 4px; accent-color: var(--accent); flex: none; width: 14px; height: 14px; }
+  .check input:checked + span { color: var(--text-3); text-decoration: line-through; }
+  .check h3 { margin-top: 16px; }
+  .check h3:first-child { margin-top: 0; }
+  .loop {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin: 18px 0 8px;
+  }
+  .loop div {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+    padding: 12px 10px; text-align: center;
+  }
+  .loop .k { font-family: var(--mono); font-size: 11px; color: var(--accent); display: block; margin-bottom: 4px; }
+  .loop .t { font-size: 12.5px; color: var(--text-2); }
+  .tag {
+    font-family: var(--mono); font-size: 11px; padding: 2px 8px;
+    background: var(--surface-2); border: 1px solid var(--line); border-radius: 4px; color: var(--text-2);
+    display: inline-block; margin: 2px 4px 2px 0;
+  }
+  footer {
+    margin-top: 72px; padding-top: 22px; border-top: 1px solid var(--line);
+    font-size: 12.5px; color: var(--text-3);
+  }
+  footer p + p { margin-top: 9px; }
+  @media (max-width: 860px) {
+    .g2, .g3, .g4, .loop { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 1fr; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow">Web3 零基础 · AI 时代路径 · 更新 2026-09-20</div>
+  <h1>不背白皮书。<br>学会检查和改 AI 写出来的链上代码。</h1>
+  <p class="lede">
+    给小夏：Web3 零基础，主线是
+    <a href="https://hack.dev3pack.xyz/" target="_blank">Dev3pack 免费 Solana Rust 训练营</a>
+    （约 10 月 6–30 日）→ 11 月黑客松 → 2027 年 ETHGlobal / Colosseum。
+    AI 负责出第一稿，你负责写规格、跑通、找漏洞、改 10 行。这才是 2026 年能打比赛的能力。
+  </p>
+
+  <div class="g4" style="margin-top:28px">
+    <div class="stat hot">
+      <div class="n" data-deadline="2026-10-06T00:00:00+08:00">—</div>
+      <div class="l">距训练营开营（北京时间 10/6）</div>
+    </div>
+    <div class="stat">
+      <div class="n">16 天</div>
+      <div class="l">开营前只做「当用户 + 装工具 + 审 AI」</div>
+    </div>
+    <div class="stat">
+      <div class="n">12 条</div>
+      <div class="l">原理只记这些，能审代码就够</div>
+    </div>
+    <div class="stat">
+      <div class="n">2027</div>
+      <div class="l">真正冲大奖的年份，今年先交一次作品</div>
+    </div>
+  </div>
+
+  <div class="verdict">
+    <p><strong>正确打法（已按这个改）：</strong> 不赶 10 月 12 日的 World's Fair / Metropolis。那两场是给已经会部署的人。零基础硬赶，交上去的是你看不懂的 AI 代码，评委一问就穿。</p>
+    <p><strong>今年的目标只有一个：</strong> 11 月 1 日前，独立讲清楚自己仓库里每一条指令「谁能调、改什么、钱怎么走」，并在 Dev3pack 交一份开源 Solana 作品。</p>
+    <p><strong>2027 的目标：</strong> 同一套审查能力复用到 EVM，打 ETHGlobal 线上赛和下一届 Colosseum。</p>
+  </div>
+
+  <div class="warn">
+    <p><strong>报名资格必须今天自己确认，我不能替你担保。</strong></p>
+    <p>Dev3pack <em>社区会员项目</em>官方写明只对女性和非二元开放；<em>黑客松</em>官网写成全球大学生赛，报名页有 External Member 通道，上海有线下站点。训练营和黑客松是不是同一套门槛，以
+      <a href="https://hack.dev3pack.xyz/register" target="_blank">报名页</a> 和
+      <a href="https://www.dev3pack.xyz/" target="_blank">dev3pack.xyz</a> 为准。</p>
+    <p>今天做两件事：1）报名黑客松 + 训练营，把资格问答截图保存；2）如果被拒，走本页「备份自学线」，日历不变，教材换成 Solana 官方文档。</p>
+  </div>
+
+  <!-- ===== AI METHOD ===== -->
+  <section>
+    <h2>AI 时代怎么学：六步闭环</h2>
+    <p class="sub">每天只转这一圈。转不完就缩短题目，不要改成「先看完一门课再说」。</p>
+
+    <div class="loop">
+      <div><span class="k">1 规格</span><span class="t">你先写 5 条，再问 AI</span></div>
+      <div><span class="k">2 生成</span><span class="t">AI 出第一稿，禁止直接合</span></div>
+      <div><span class="k">3 朗读</span><span class="t">每条指令用自己的话讲一遍</span></div>
+      <div><span class="k">4 跑通</span><span class="t">测试失败就停，先修环境</span></div>
+      <div><span class="k">5 攻击</span><span class="t">你写一条 AI 没写的坏用例</span></div>
+      <div><span class="k">6 手改</span><span class="t">自己改 10 行，不让 AI 重写全文件</span></div>
+    </div>
+    <p class="sub" style="margin-top:8px">过关标准不是「AI 能跑」，而是「你能改，且改完还能讲」。</p>
+
+    <div class="g3">
+      <div class="box">
+        <h3>规格必须你写</h3>
+        <p>至少写清：谁是用户、点哪一步、链上改哪个账户、谁付钱、失败时怎么回滚。规格空着就让 AI 写，等于把产品决定权交出去，后面无法审查。</p>
+      </div>
+      <div class="box">
+        <h3>讲解必须你讲</h3>
+        <p>对着代码录音 90 秒，或写 8 行注释。讲不出来的函数，视为你不会。比赛评委和加速器面试问的就是这个，不是问你用了哪个模型。</p>
+      </div>
+      <div class="box">
+        <h3>手改必须你改</h3>
+        <p>例如把 <code>increment</code> 改成 <code>increment_by(n)</code>，并加上最大值。AI 可以提示，但补丁必须你敲。这是「修改能力」的最小训练单位。</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <p><strong>禁止的学法：</strong> 把 Solidity / Rust 教材从头看到尾；让 AI「做个完整 DEX」然后提交；收藏 30 个教程却从不部署；用主网真金测试。这些都会让你在 11 月交一份自己解释不了的仓库。</p>
+    </div>
+  </section>
+
+  <!-- ===== 12 PRINCIPLES ===== -->
+  <section>
+    <h2>只记 12 条原理</h2>
+    <p class="sub">用来审 AI，不是用来考试。遇到生成代码，用这张表对照「它有没有撒谎」。</p>
+    <table>
+      <thead>
+        <tr><th>#</th><th>原理</th><th>审 AI 时怎么用</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><b>钱包是密钥对</b>，不是「网站账号」</td><td>AI 若把私钥写进前端或仓库，直接扔掉</td></tr>
+        <tr><td>2</td><td><b>交易是签名后的指令列表</b></td><td>问：这条交易里有几条指令？谁签了名？</td></tr>
+        <tr><td>3</td><td>Solana 上 <b>程序无状态，数据在账户里</b></td><td>AI 若按以太坊「合约自己存余额」来写，模型用错了</td></tr>
+        <tr><td>4</td><td><b>账户必须显式传入</b></td><td>Accounts 结构少一个账户，运行时会炸。让 AI 列账户表</td></tr>
+        <tr><td>5</td><td><b>PDA</b> 是程序控制的地址</td><td>核对 seeds 和 bump 是否和客户端一致，这是最高频幻觉</td></tr>
+        <tr><td>6</td><td>每个账户问三句：<b>谁签名、谁可写、谁拥有</b></td><td>缺 signer / 缺 has_one / 缺 owner 检查 = 可被偷</td></tr>
+        <tr><td>7</td><td>代币 = <b>Mint + Token Account（ATA）</b></td><td>AI 常混用 Token Program 和 Token-2022，程序 ID 必须对</td></tr>
+        <tr><td>8</td><td><b>CPI</b> 是程序调用另一个程序</td><td>转账、发币几乎都是 CPI。没有 CPI 却声称「转了钱」，是假的</td></tr>
+        <tr><td>9</td><td>存数据要付 <b>rent</b>，账户有固定大小</td><td>AI 乱改账户结构却不升级空间，部署后写不进去</td></tr>
+        <tr><td>10</td><td>三套网：<b>localnet / devnet / mainnet</b></td><td>例子里出现主网 RPC 或真 SOL，立刻停</td></tr>
+        <tr><td>11</td><td>安全只问一句：<b>谁能把钱转走</b></td><td>自己写一条「攻击者调这个指令」的测试</td></tr>
+        <tr><td>12</td><td>前端只是遥控器，<b>链上才是真相</b></td><td>按钮能点不算完成，浏览器里账户数据变了才算</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ===== CHECKLISTS ===== -->
+  <section>
+    <h2>AI 生成内容检查清单</h2>
+    <p class="sub">每次合代码前过一遍。勾选存在本机浏览器里，刷新不会丢。</p>
+    <div class="tabs" data-group="chk">
+      <button class="tab on" data-p="chk-sol">Solana 程序</button>
+      <button class="tab" data-p="chk-fe">前端 / 钱包</button>
+      <button class="tab" data-p="chk-ai">AI 幻觉高频名单</button>
+      <button class="tab" data-p="chk-sub">比赛提交物</button>
+    </div>
+
+    <div class="pane on" id="chk-sol">
+      <div class="check" data-store="sol">
+        <h3>账户与权限</h3>
+        <label><input type="checkbox"><span>每个账户都写了它是 signer / mut / PDA 中的哪一种，没有「顺手传进来」的账户</span></label>
+        <label><input type="checkbox"><span>PDA 的 seeds 在 Rust 和客户端里逐字节一致；bump 来自 find_program_address，不是写死的数字</span></label>
+        <label><input type="checkbox"><span>能改钱或改关键状态的指令，都校验了「应该签名的人」签了名</span></label>
+        <label><input type="checkbox"><span>Token 账户的 mint、owner、authority 对得上，没有把用户的 ATA 写成程序自己的账户</span></label>
+        <label><input type="checkbox"><span>用的是 SPL Token 还是 Token-2022，程序 ID 和客户端同一个，没有混用</span></label>
+        <h3>钱怎么走</h3>
+        <label><input type="checkbox"><span>转账一定走 Token Program / System Program 的 CPI，而不是只改了一个自己编的数字字段</span></label>
+        <label><input type="checkbox"><span>我能画出「谁扣钱、谁收款、手续费归谁」。画不出来就不要部署</span></label>
+        <label><input type="checkbox"><span>失败路径有测试：余额不足、未初始化、重复初始化、陌生人调用</span></label>
+        <h3>你必须能改</h3>
+        <label><input type="checkbox"><span>我已经亲手改过一条约束（上限、暂停开关、白名单），并且测试仍然绿</span></label>
+        <label><input type="checkbox"><span>我能不看 AI 聊天记录，把每条 instruction 的作用讲 30 秒</span></label>
+      </div>
+    </div>
+
+    <div class="pane" id="chk-fe">
+      <div class="check" data-store="fe">
+        <label><input type="checkbox"><span>连接的是 devnet（或 localnet），RPC 不是主网</span></label>
+        <label><input type="checkbox"><span>仓库和网页里没有私钥、助记词、.env 真值</span></label>
+        <label><input type="checkbox"><span>钱包未连接、切错网、用户拒签，三种情况都有人话提示</span></label>
+        <label><input type="checkbox"><span>交易发出后有签名哈希，并能在 Solana Explorer（devnet）打开</span></label>
+        <label><input type="checkbox"><span>页面显示的数字来自链上账户，不是写死在 React state 里</span></label>
+        <label><input type="checkbox"><span>程序 ID 和 IDL 来自这次部署，不是 AI 从旧教程复制的</span></label>
+      </div>
+    </div>
+
+    <div class="pane" id="chk-ai">
+      <div class="box">
+        <p>2025–2026 年 AI 写 Solana 时最爱错的东西。看到就当警报：</p>
+        <ul>
+          <li>编造不存在的 crate / npm 包，或把 <code>@solana/web3.js</code> 1.x 和 <code>@solana/kit</code> 的 API 混在一个文件里</li>
+          <li>Program ID 乱填：System Program、Token Program、Associated Token Program 用了过期或错误地址</li>
+          <li>PDA seeds 在程序和前端不一致，或把 bump 写成 <code>255</code></li>
+          <li>用 <code>unwrap()</code> / <code>expect()</code> 处理用户输入，测试一过业务一炸</li>
+          <li>「已经转账」但代码里没有任何 CPI</li>
+          <li>教程还在教已废弃的 <code>solana-install</code>；现在应走 <a href="https://solana.com/docs/intro/installation" target="_blank">官方安装</a> 和当前 Anchor 版本（以 <code>anchor --version</code> 为准，不要让 AI 锁死过期版本）</li>
+          <li>让你把真实 SOL 打到它生成的地址，或把私钥发到聊天里</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="pane" id="chk-sub">
+      <div class="check" data-store="sub">
+        <label><input type="checkbox"><span>公开仓库，README 第一屏：谁用、解决什么、怎么跑</span></label>
+        <label><input type="checkbox"><span>devnet 程序地址，能在浏览器打开</span></label>
+        <label><input type="checkbox"><span>陌生人能打开的前端 URL，不用本地 localhost</span></label>
+        <label><input type="checkbox"><span>2–3 分钟视频，前 15 秒就是产品画面</span></label>
+        <label><input type="checkbox"><span>我能回答：为什么必须用区块链，而不是一张普通数据库表</span></label>
+        <label><input type="checkbox"><span>AI 用过，但我能解释每一条指令（Dev3pack 允许 AI，前提是你理解自己交的东西）</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PHASES ===== -->
+  <section>
+    <h2>完整路径：现在 → 训练营 → 11 月 → 2027</h2>
+    <p class="sub">备份线：训练营进不去，就按同一日历用官方文档自学，不要改目标日期。</p>
+    <div class="tabs" data-group="ph">
+      <button class="tab on" data-p="ph0">0. 开营前 9/20–10/5</button>
+      <button class="tab" data-p="ph1">1. 训练营 10/6–10/30</button>
+      <button class="tab" data-p="ph2">2. 黑客松 10/30–11/1</button>
+      <button class="tab" data-p="ph3">3. 赛后到 2027</button>
+    </div>
+
+    <div class="pane on" id="ph0">
+      <div class="step">
+        <div class="when"><b>今天</b>9/20</div>
+        <div>
+          <div class="goal">报名，并把资格搞清楚</div>
+          <ul>
+            <li>打开 <a href="https://hack.dev3pack.xyz/register" target="_blank">hack.dev3pack.xyz/register</a>，走 External Member / 学生通道，填完保存截图</li>
+            <li>同步点 <a href="https://www.dev3pack.xyz/" target="_blank">Rust Bootcamp Apply</a>。日期以官网为准（有的页面写 10/6–30，有的写 10/5–29）</li>
+            <li>看上海站点是否开放：黑客松页列出了 <b>Shanghai, China</b>，能去线下就去，人陪着审代码比自己快</li>
+            <li>装 Cursor / Git / Node LTS。本页勾选框开始用</li>
+          </ul>
+          <div class="deliver"><b>交付</b> · 报名回执截图 + 一份「我是否符合学生/性别限制」的三行结论</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><b>第 1–4 天</b>当用户</div>
+        <div>
+          <div class="goal">先当用户，再当开发者</div>
+          <ul>
+            <li>装 <a href="https://phantom.com/" target="_blank">Phantom</a>，切到 Devnet，用官方水龙头领测试 SOL。主网不要碰</li>
+            <li>给自己另一个地址转一笔，在 <a href="https://explorer.solana.com/?cluster=devnet" target="_blank">Explorer（devnet）</a> 把这笔交易的账户列表读完</li>
+            <li>用一个现成 dApp 走一遍（例如 devnet 上的交换或 faucet 应用）。写下：你签了什么、余额哪变了</li>
+            <li>用自己的话写 12 条原理里的 1、2、10、12。写不出来就再看 Explorer，不要开书</li>
+          </ul>
+          <div class="deliver"><b>交付</b> · 一笔你能讲解的 devnet 交易哈希</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><b>第 5–8 天</b>审 AI 的 Rust</div>
+        <div>
+          <div class="goal">Rust 只学到「能读懂 AI 在干什么」</div>
+          <ul>
+            <li>只啃四块：所有权 / 借用、<code>Result</code> + <code>?</code>、<code>match</code>、<code>struct</code>。异步、宏编写、多线程全部跳过</li>
+            <li>练习：让 AI 写一个本地计数器 CLI → 你朗读每一函数 → 你自己加上「不能减到负数」→ 再让 AI 写测试，你再补一条它没想到的</li>
+            <li>看到看不懂的报错，先自己用中文复述编译器在说什么，再问 AI。复述不了就还没读懂报错</li>
+          </ul>
+          <div class="deliver"><b>交付</b> · 一个你改过、测试绿了的本地 Rust 小项目</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><b>第 9–16 天</b>装链上工具</div>
+        <div>
+          <div class="goal">开营第一天就能跟操作，而不是在装环境</div>
+          <ul>
+            <li>按 <a href="https://solana.com/docs/intro/installation" target="_blank">Solana 官方安装</a> 装 Rust、Solana CLI、Anchor。版本以你机器上 <code>anchor --version</code> 为准，不要让 AI 指定过期号</li>
+            <li>跟 <a href="https://solana.com/docs/intro/quick-start/build-first-program" target="_blank">官方第一支程序</a>：<code>anchor init</code> → <code>anchor test</code></li>
+            <li><b>手改：</b> 把 increment 改成 increment_by(n)，加一个最大值。这是开营前最重要的一次训练</li>
+            <li>有余力再 <code>anchor deploy --provider.cluster devnet</code>，把程序 ID 写进笔记</li>
+          </ul>
+          <div class="deliver"><b>交付</b> · <code>anchor test</code> 全绿 + 你亲笔改过的那几行 diff</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pane" id="ph1">
+      <div class="note" style="margin-top:0">
+        <p><strong>训练营是主课，AI 是助教。</strong> 官方课讲完 24 小时内，必须用自己的仓库复现，禁止只交官方作业仓库。进不去训练营：同一节奏自学官方文档 + Anchor 示例，每周仍要有可演示的提交。</p>
+      </div>
+      <div class="step">
+        <div class="when"><b>每周课后</b>24 小时规则</div>
+        <div>
+          <div class="goal">课上过的东西，第二天必须出现在你自己的仓库</div>
+          <ul>
+            <li>课后立刻写 5 条规格：这节课的程序谁在用、改哪个账户</li>
+            <li>可以让 AI 对照笔记生成，但你要对照官方示例 diff，标出 AI 多写/少写/写错的 3 处</li>
+            <li>补一条「坏人调用」测试</li>
+            <li>用检查清单过一遍再睡觉</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><b>10/6–12</b>第 1 周</div>
+        <div>
+          <div class="goal">账户模型 + 第一条自有指令</div>
+          <ul>
+            <li>跟课：Rust 在 Solana 里怎么写，账户怎么传</li>
+            <li>自己的周末作业：小费罐 / 打卡器 / 简单金库，三选一，不要做 DEX</li>
+            <li>前端可以先用脚本，能 <code>anchor test</code> 就行</li>
+          </ul>
+          <div class="deliver"><b>交付</b> · 一条你命名的 instruction，测试覆盖成功和失败</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><b>10/13–19</b>第 2 周</div>
+        <div>
+          <div class="goal">PDA + 代币</div>
+          <ul>
+            <li>跟课：PDA、ATA、CPI 转代币</li>
+            <li>在自己的项目里加入「存入 / 取出」，画出资金流</li>
+            <li>专门审一遍 seeds / mint / owner。这周最容易被 AI 带沟里</li>
+          </ul>
+          <div class="deliver"><b>交付</b> · Explorer 上能看到 token 余额变化的一笔 devnet 交易</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><b>10/20–26</b>第 3 周</div>
+        <div>
+          <div class="goal">前端接上，看起来像产品</div>
+          <ul>
+            <li>Next.js + 钱包适配器。集群写死 devnet</li>
+            <li>三个状态必须做：未连接、切错网、用户拒签</li>
+            <li>开始写黑客松规格：一句话痛点、为什么要上链、三天能做完的最小闭环</li>
+          </ul>
+          <div class="deliver"><b>交付</b> · 可访问的预览 URL（Vercel）+ 黑客松规格半页纸</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><b>10/27–29</b>第 4 周</div>
+        <div>
+          <div class="goal">冻结功能，只打磨能讲的部分</div>
+          <ul>
+            <li>不再加新指令。把现有指令讲熟、测试补齐、README 写完</li>
+            <li>组队：1–4 人。你至少认领「链上逻辑讲解」这个角色，不能只做 PPT</li>
+            <li>开赛前脚手架可以搭，业务指令按赛事规则确认是否允许赛前写。Dev3pack 允许 AI，但作品必须是你的、必须开源、必须用 Solana</li>
+          </ul>
+          <div class="deliver"><b>交付</b> · 开赛清单：规格、仓库、钱包、devnet SOL、2 分钟讲解稿</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pane" id="ph2">
+      <div class="step">
+        <div class="when"><b>10/30</b>Day 1</div>
+        <div>
+          <div class="goal">规格锁死，主路径跑通</div>
+          <ul>
+            <li>上午只写规格和账户图，下午才让 AI 写代码</li>
+            <li>目标：晚上 <code>anchor test</code> 绿，主指令能在 devnet 调通</li>
+            <li>不要做多链、不要做代币发行、不要做「平台」</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><b>10/31</b>Day 2</div>
+        <div>
+          <div class="goal">前端 + 一条你亲手改过的约束</div>
+          <ul>
+            <li>陌生人按 README 能走完主流程</li>
+            <li>加一个上限 / 暂停 / 白名单，证明你不是纯粘贴</li>
+            <li>录一版草稿视频，找队友或自己复盘卡点</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><b>11/1</b>Day 3</div>
+        <div>
+          <div class="goal">提交，不再加功能</div>
+          <ul>
+            <li>过「比赛提交物」清单。视频前 15 秒必须是产品</li>
+            <li>准备 90 秒口播：痛点、链上做了什么、钱怎么走、下一步</li>
+            <li>提交后仓库保持更新——加速器看的是你赛后还在不在做</li>
+          </ul>
+          <div class="deliver"><b>交付</b> · 提交回执 + 能讲解的开源仓库</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pane" id="ph3">
+      <div class="step">
+        <div class="when"><b>11 月</b>换成现金</div>
+        <div>
+          <div class="goal">用刚学会的审查能力接第一单</div>
+          <ul>
+            <li><a href="https://superteam.fun/earn/bounties/" target="_blank">Superteam Earn</a>：SDK 小应用、Telegram bot、看板，公开参考价大约 $1,500–3,000，平台零抽成</li>
+            <li>只接你能审查的单。看不懂的协议不要接</li>
+            <li>入选 <a href="https://bridge.dev3pack.xyz/" target="_blank">Bridge Accelerator</a>（11 月–1 月）就全力跟；没入选也继续打磨同一个产品</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><b>12 月</b>可选加赛</div>
+        <div>
+          <div class="goal">只有主项目稳定后才分心</div>
+          <ul>
+            <li><a href="https://hackathon.stackup.dev/web/events/canton-core-ideathon" target="_blank">Canton Construct</a>（约 11/13–12/5，$20K 均分 10 队）：更偏想法和 DeFi 组件，适合练表达</li>
+            <li><a href="https://hackathon.qie.digital/" target="_blank">QIE 3.0</a>（11/30 截止）要真实用户，和「交完就扔」相反，可当作品集压力测试</li>
+            <li>这两场都不是主线。主线仍是 Solana 作品 + 第一笔 USDC</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step">
+        <div class="when"><b>2026 Q4–2027</b>第二套栈</div>
+        <div>
+          <div class="goal">把同一套审查方法迁到 EVM，冲大奖</div>
+          <ul>
+            <li>订 <a href="https://ethglobal.com/events" target="_blank">ETHGlobal</a> 邮件和 Discord。ETHOnline 2026 已于 9 月 13 日截止，下一届线上赛是 2027 的必打场</li>
+            <li>EVM 入门仍然轻原理：账户/存储、msg.sender、CEI、OpenZeppelin 直接继承。审查清单换成「谁能把钱转走 + 重入 + 授权」</li>
+            <li>Colosseum 一年多场（Radar / Frontier / World's Fair）。你 2026 年没赶 10/12，是为了 2027 年交得出自己能讲的东西</li>
+            <li>到那时再考虑并行 EVM 赛道奖金。现在并行 = 两头空</li>
+          </ul>
+          <div class="deliver"><b>交付</b> · 2027 开赛前：一份你能从零讲解的 Solana 产品 + 一份最小 EVM 产品</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WEEKLY RITUAL ===== -->
+  <section>
+    <h2>一周时间盒（开营前按这个过）</h2>
+    <p class="sub">假设工作日每晚 90 分钟，周末半天。少了就减题目，不要加课。</p>
+    <div class="g2">
+      <div class="box">
+        <h3>工作日 90 分钟</h3>
+        <p>15 分：写今夜规格（5 条）。<br>40 分：AI 生成 + 你朗读 + 跑测试。<br>25 分：亲手改一个约束，再跑测试。<br>10 分：把「我还讲不清的点」记三条，明天先问这个。</p>
+      </div>
+      <div class="box">
+        <h3>周末 3 小时</h3>
+        <p>把本周五条串成一次完整演示：从钱包连上，到 Explorer 能点开哈希。演示不了，本周不算过。周日只补 README 和检查清单，不加功能。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TOPICS ===== -->
+  <section>
+    <h2>11 月可以做的题，和绝对不要做的题</h2>
+    <div class="g2">
+      <div class="box">
+        <h3>可以做（三天能讲完）</h3>
+        <p>
+          <span class="tag">有额度的小费/打赏</span>
+          <span class="tag">小组分账</span>
+          <span class="tag">可暂停的金库</span>
+          <span class="tag">打卡换测试币</span>
+          <span class="tag">Agent 限额钱包</span>
+        </p>
+        <p style="margin-top:10px">共同特征：账户少、资金流画得清、能加一条你亲手写的约束。Agent 限额钱包尤其适合「AI 时代」叙事，但权限必须你能讲。</p>
+      </div>
+      <div class="box">
+        <h3>不要做</h3>
+        <p>
+          <span class="tag">发币 / meme</span>
+          <span class="tag">又一个 DEX</span>
+          <span class="tag">NFT 市场</span>
+          <span class="tag">跨链桥</span>
+          <span class="tag">链是硬贴上去的</span>
+        </p>
+        <p style="margin-top:10px">评委第一问永远是「为什么这必须上链」。答成「因为这是黑客松」就出局。跨链和 DEX 的攻击面，零基础三天审不完。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CALENDAR ===== -->
+  <section>
+    <h2>时间轴（主线加粗，其他是背景）</h2>
+    <table>
+      <thead>
+        <tr><th>时间</th><th>主线</th><th>不要做</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><b>9/20–10/5</b></td><td>报名 + 当用户 + Rust 够审 + Anchor 第一支程序</td><td>赶 World's Fair / Metropolis 完整产品</td></tr>
+        <tr><td><b>10/6–10/30</b></td><td>Dev3pack 训练营（或官方文档备份线）+ 自己的周末项目</td><td>同时开 EVM 第二条栈</td></tr>
+        <tr><td><b>10/30–11/1</b></td><td>Dev3pack 黑客松，线上或上海站</td><td>赛中换题、加多链</td></tr>
+        <tr><td><b>11 月</b></td><td>Superteam 第一单 + 等 Bridge</td><td>为了奖项重写一个无关项目</td></tr>
+        <tr><td>11/13–12/5</td><td>仅当主项目稳定，才考虑 Canton</td><td>把它提升成新主线</td></tr>
+        <tr><td><b>2027</b></td><td>ETHGlobal 线上赛 + 下一届 Colosseum</td><td>用 2026 年那种看不懂的 AI 仓库去冲</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <footer>
+    <p><b style="color:var(--text-2)">来源</b>
+      <a href="https://hack.dev3pack.xyz/" target="_blank">Dev3pack Hackathon</a> ·
+      <a href="https://hack.dev3pack.xyz/register" target="_blank">报名</a> ·
+      <a href="https://www.dev3pack.xyz/" target="_blank">训练营入口</a> ·
+      <a href="https://solana.com/docs/intro/installation" target="_blank">Solana 安装</a> ·
+      <a href="https://solana.com/docs/intro/quick-start/build-first-program" target="_blank">第一支程序</a> ·
+      <a href="https://superteam.fun/earn/bounties/" target="_blank">Superteam Earn</a> ·
+      <a href="https://ethglobal.com/events" target="_blank">ETHGlobal 日历</a>
+    </p>
+    <p>训练营具体日程、是否对 External Member 开放、奖金数字，都以报名后的官方邮件为准。本页不构成法律、税务或投资建议。加密资产收款的合规由小夏自行确认。</p>
+    <p>勾选保存在本机 localStorage，不会上传。</p>
+  </footer>
+</div>
+<script>
+  function pad(n) { return n < 10 ? "0" + n : "" + n; }
+  function tick() {
+    document.querySelectorAll("[data-deadline]").forEach(function (el) {
+      var t = new Date(el.getAttribute("data-deadline")).getTime() - Date.now();
+      if (t <= 0) { el.textContent = "已开始"; return; }
+      var d = Math.floor(t / 86400000);
+      var h = Math.floor(t % 86400000 / 3600000);
+      el.textContent = d + " 天 " + h + " 时";
+    });
+  }
+  tick();
+  setInterval(tick, 60000);
+
+  document.querySelectorAll(".tabs").forEach(function (group) {
+    group.querySelectorAll(".tab").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        group.querySelectorAll(".tab").forEach(function (b) { b.classList.remove("on"); });
+        btn.classList.add("on");
+        var id = btn.getAttribute("data-p");
+        var pane = document.getElementById(id);
+        if (!pane) return;
+        var parent = pane.parentElement;
+        parent.querySelectorAll(":scope > .pane").forEach(function (p) { p.classList.remove("on"); });
+        pane.classList.add("on");
+      });
+    });
+  });
+
+  document.querySelectorAll(".check").forEach(function (box) {
+    var key = "xia-web3-" + box.getAttribute("data-store");
+    var saved = [];
+    try { saved = JSON.parse(localStorage.getItem(key) || "[]"); } catch (e) {}
+    box.querySelectorAll("input").forEach(function (input, i) {
+      input.checked = !!saved[i];
+      input.addEventListener("change", function () {
+        var next = [];
+        box.querySelectorAll("input").forEach(function (x) { next.push(x.checked); });
+        localStorage.setItem(key, JSON.stringify(next));
+      });
+    });
+  });
+</script>
+</body>
+</html>
